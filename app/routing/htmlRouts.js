@@ -1,4 +1,4 @@
-module.exports = function htmlRouts(){
+module.exports = function htmlRouts(app){
 
     var path = require("path");
     
