@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>friend finder survey</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
@@ -21,9 +22,20 @@
 
 
         <form>
+        
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" />
+        </div>
+
+        <div class="form-group">
+            <label for="name">Photo</label>
+            <input type="url" id="photo" />
+        </div>
+
         <div class="form-group">
             <label for="exampleFormControlSelect1">Example select</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <select class="form-control" id="q1">
               <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -34,7 +46,7 @@
 
         <div class="form-group">
             <label for="exampleFormControlSelect1">Example select</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <select class="form-control" id="q2">
               <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -45,7 +57,7 @@
         
         <div class="form-group">
             <label for="exampleFormControlSelect1">Example select</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <select class="form-control" id="q3">
               <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -56,7 +68,7 @@
 
         <div class="form-group">
             <label for="exampleFormControlSelect1">Example select</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <select class="form-control" id="q4">
               <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -67,7 +79,7 @@
 
         <div class="form-group">
             <label for="exampleFormControlSelect1">Example select</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <select class="form-control" id="q5">
               <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -78,7 +90,7 @@
 
         <div class="form-group">
             <label for="exampleFormControlSelect1">Example select</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <select class="form-control" id="q6">
               <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -89,7 +101,7 @@
 
         <div class="form-group">
             <label for="exampleFormControlSelect1">Example select</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <select class="form-control" id="q7">
               <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -100,7 +112,7 @@
 
         <div class="form-group">
             <label for="exampleFormControlSelect1">Example select</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <select class="form-control" id="q8">
               <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -111,7 +123,7 @@
 
         <div class="form-group">
             <label for="exampleFormControlSelect1">Example select</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <select class="form-control" id="q9">
               <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -122,7 +134,7 @@
 
         <div class="form-group">
             <label for="exampleFormControlSelect1">Example select</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <select class="form-control" id="q10">
               <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -131,11 +143,56 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary"id="submit" >Submit</button>
 
         </form>
 
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>Hey it looks like you have a friend</h4>
+                    <h5 id="matchName"></h5>
+                    <img id="matchPic" src="" alt="No Image" width = 250px>
+                </div>
+            <div class="modal-footer">
+                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Done</a>
+            </div>
+      </div>
 
     </div>
+    <script>
+        $(document).ready(function(){
+
+        $("#submit").on("click",function(){
+
+            var newFriend ={
+            name: $("#name").val().trim(),
+            photo: $("#photo").val().trim(),
+            answers: [
+                $("#q1").val(),
+                $("#q2").val(),
+                $("#q3").val(),
+                $("#q4").val(),
+                $("#q5").val(),
+                $("#q6").val(),
+                $("#q7").val(),
+                $("#q8").val(),
+                $("#q9").val(),
+                $("#q10").val()
+            ]
+            };
+
+            console.log(newFriend);
+            
+            var curentURL = window.location.origin;
+
+            $.post(curentURL+"/api/friends", newFriend, function(data){
+                $("#mathName").text(data.name);
+                $("#matchPic").attr("src",data.photo);
+            });
+            $(".modal").modal();
+
+        });
+        });
+    </script>
 </body>
 </html>
