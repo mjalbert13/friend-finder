@@ -1,8 +1,7 @@
-module.exports = function apiRoutes(app){
+var friends = require("./../data/friends");
+var friendsArray = friends.friendslist;
 
-    var fs = require("fs");
-    var path = require("path");
-    var friends = require("./../data/friends");
+module.exports = function apiRoutes(app){
 
     app.get("/api/firiends", function(req,res){
         return res.json(friends);
@@ -10,30 +9,27 @@ module.exports = function apiRoutes(app){
 
     app.post("/api/friends", function(req,res){
         
-        var totaldif;
-        var diffAray = [];
         var newEntry = req.body;
+        var newScores =newEntry.answers;
+        var diffAarray =[];
+        var friend =[];
 
-        for(var i = 0; i< friends.length; i++){
-            totaldif =0;
-            for(var k= 0; k < newEntry.scores.length; i++){
-                totaldif += Math.abs(friends[i].scores[k]-newEntry.scores[k]);
+        friendsArray.forEach(function(newFriend){
+            var matchScore = newFriend.answers;
+            var totalDiff = 0;
+
+            for(var i=0; i< matchScore.length; i++){
+                totalDiff += Math.abs(matchScore[i]-newScores[i]);
             }
-            diffAray.push(totaldif)
-        }
-        var friendMatch = diffAray.indexOf(Math.min(...diffAray));
-
-        friends.push(newEntry);
-        console.log(newEntry);
-
-        fs.readFile(path.join(__dirname,"../data/friends.json"),"utf8",function(err,data){
-            if(err) throw err;
-            var json =JSON.parse(data);
-            json.push(newEntry);
-            fs.watchFile(path.join(__dirname, "../data/friends.json"),JSON.stringify(json,null,2),function(err){
-                if(err) throw err;
-            });
+            diffAarray.push(totalDiff);
+            diffAarray.sort();
+            topScore = diffAarray[0];
+            friend.push({name: newFriend.name, photo: newFriend.photo, differnce: totalDiff});
         });
-        res.json(friends[friendMatch]);
+        var matchFriend = friend.find(function(element){
+            return element.differnce === topScore;
+        });
+        friendsArray.push(newEntry);
+        res.json(matchFriend);
     });
 };
