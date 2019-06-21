@@ -35,5 +35,5 @@ module.exports = function apiRoutes(app){
             });
         });
         res.json(friends[friendMatch]);
-    })
-}
+    });
+};
