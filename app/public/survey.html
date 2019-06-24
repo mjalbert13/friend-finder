@@ -16,7 +16,7 @@
             <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
             <hr class="my-4">
             <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+            <a class="btn btn-primary btn-lg" href="/" role="button">Learn more</a>
         </div>
 
 
@@ -147,6 +147,11 @@
 
         </form>
 
+        <div id="yourFriend">
+          <h1 id="friend-name"></h1>
+          <img id="friend-pic" src="" alt="">
+        </div>
+
         <div id="modal1" class="modal">
             <div class="modal-content">
                 <h4>Hey it looks like you have a friend</h4>
@@ -191,11 +196,11 @@ $(document).ready(function(){
       $.post("/api/friends", newFriend).done(function(data){
         
 
-        $("#matchName").text(data.friendMatch);
-        $("#matchPic").text(data.matchPhoto);
+        $("#frien-name").text(data.friendMatch);
+        $("#friend-pic").text(data.matchPhoto);
         alert("NEw Friend added")
         
-        $(".modal").modal('open')
+        //$(".modal").modal('open')
       });
       
 
