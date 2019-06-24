@@ -143,7 +143,7 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary"id="submit" >Submit</button>
+        <button type="submit" class="btn btn-primary" id="submit" >Submit</button>
 
         </form>
 
@@ -164,11 +164,12 @@
 </html>
 <script type="text/javascript">
 
-  $(document).ready(function(){
+$(document).ready(function(){
 
   $("#submit").on("click",function(event){
     event.preventDefault()
-      var newFriend ={
+      
+    var newFriend ={
       name: $("#name").val().trim(),
       photo: $("#photo").val().trim(),
       answers: [
@@ -187,19 +188,17 @@
 
       console.log(newFriend);
 
-      $.post("/api/friends", newFriend, function(data){
-         if(data){
-           console.log(data);
-           alert("NEw Friend added")
-         }else{
-           alert("Sorry no friends")
-         }
+      $.post("/api/friends", newFriend).done(function(data){
+        
 
-         $("#name").val("");
-         $("#photo").val("");
+        $("#matchName").text(data.friendMatch);
+        $("#matchPic").text(data.matchPhoto);
+        alert("NEw Friend added")
+        
+        //$(".modal").modal('open')
       });
-      //$(".modal").modal();
+      
 
   });
-  });
+});
 </script>

@@ -1,35 +1,36 @@
-var friends = require("./../data/friends");
-var friendsArray = friends.friendslist;
+var friends = require("../data/friends");
+var path = require("path");
 
 module.exports = function apiRoutes(app){
 
-    app.get("/api/firiends", function(req,res){
-        return res.json(friends);
+    app.get("/api/friends", function(req,res){
+        res.json(friends);
     });
 
     app.post("/api/friends", function(req,res){
         
-        var newEntry = req.body;
-        var newScores =newEntry.answers;
-        var diffAarray =[];
-        var friend =[];
+        var newFriend = req.body;
+        console.log("User enterd "+JSON.stringify(newFriend));
+        
+        var friendScores = newFriend.scores;
+        var friendMatch ="";
+        var matchPhoto = "";
+        
+        var totalDiff = 1000;
 
-        friendsArray.forEach(function(newFriend){
-            var matchScore = newFriend.answers;
-            var totalDiff = 0;
+        for(var i =0; i< friends.length; i++){
 
-            for(var i=0; i< matchScore.length; i++){
-                totalDiff += Math.abs(matchScore[i]-newScores[i]);
+            var diff = 0;
+            for(var j = 0; j< friendScores; j++){
+                diff += Math.abs(friends[i].scores[j] - friendScores[j]);
             }
-            diffAarray.push(totalDiff);
-            diffAarray.sort();
-            topScore = diffAarray[0];
-            friend.push({name: newFriend.name, photo: newFriend.photo, differnce: totalDiff});
-        });
-        var matchFriend = friend.find(function(element){
-            return element.differnce === topScore;
-        });
-        friendsArray.push(newEntry);
-        res.json(matchFriend);
+            if(diff < totalDiff){
+                totalDiff =diff;
+                friendMatch = friends[i].name;
+                matchPhoto = friends[i].photo;
+            }
+        }
+        friends.push(newFriend);
+        res.json({staus: "ok",friendMatch: friendMatch, matchPhoto: matchPhoto })
     });
 };

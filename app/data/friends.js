@@ -15,3 +15,4 @@ var friendslist =[
         scores:[5,5,4,2,2,1,1,2,4,5]
     }
 ]
+module.exports = friendslist;
