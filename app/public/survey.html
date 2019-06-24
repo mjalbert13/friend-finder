@@ -159,40 +159,47 @@
       </div>
 
     </div>
-    <script>
-        $(document).ready(function(){
-
-        $("#submit").on("click",function(){
-
-            var newFriend ={
-            name: $("#name").val().trim(),
-            photo: $("#photo").val().trim(),
-            answers: [
-                $("#q1").val(),
-                $("#q2").val(),
-                $("#q3").val(),
-                $("#q4").val(),
-                $("#q5").val(),
-                $("#q6").val(),
-                $("#q7").val(),
-                $("#q8").val(),
-                $("#q9").val(),
-                $("#q10").val()
-            ]
-            };
-
-            console.log(newFriend);
-            
-            var curentURL = window.location.origin;
-
-            $.post(curentURL+"/api/friends", newFriend, function(data){
-                $("#mathName").text(data.name);
-                $("#matchPic").attr("src",data.photo);
-            });
-            $(".modal").modal();
-
-        });
-        });
-    </script>
+    
 </body>
 </html>
+<script type="text/javascript">
+
+  $(document).ready(function(){
+
+  $("#submit").on("click",function(event){
+    event.preventDefault()
+      var newFriend ={
+      name: $("#name").val().trim(),
+      photo: $("#photo").val().trim(),
+      answers: [
+          $("#q1").val(),
+          $("#q2").val(),
+          $("#q3").val(),
+          $("#q4").val(),
+          $("#q5").val(),
+          $("#q6").val(),
+          $("#q7").val(),
+          $("#q8").val(),
+          $("#q9").val(),
+          $("#q10").val()
+      ]
+      };
+
+      console.log(newFriend);
+
+      $.post("/api/friends", newFriend, function(data){
+         if(data){
+           console.log(data);
+           alert("NEw Friend added")
+         }else{
+           alert("Sorry no friends")
+         }
+
+         $("#name").val("");
+         $("#photo").val("");
+      });
+      //$(".modal").modal();
+
+  });
+  });
+</script>
