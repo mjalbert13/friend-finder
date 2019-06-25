@@ -177,7 +177,7 @@ $(document).ready(function(){
     var newFriend ={
       name: $("#name").val().trim(),
       photo: $("#photo").val().trim(),
-      answers: [
+      scores: [
           $("#q1").val(),
           $("#q2").val(),
           $("#q3").val(),
@@ -196,8 +196,8 @@ $(document).ready(function(){
       $.post("/api/friends", newFriend).done(function(data){
         
 
-        $("#friend-name").text(data.bestFriend);
-        $("#friend-pic").text(data.matchPhoto);
+        $("#friend-name").text("Your new best friend is "+data.name);
+        $("#friend-pic").text("");
         alert("NEw Friend added")
         
         //$(".modal").modal('open')
