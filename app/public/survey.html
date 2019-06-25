@@ -156,7 +156,7 @@
             <div class="modal-content">
                 <h4>Hey it looks like you have a friend</h4>
                     <h5 id="matchName"></h5>
-                    <img id="matchPic" src="" alt="No Image" width = 250px>
+                    <img id="matchPic" src="data.photo" alt="No Image" width = 250px>
                 </div>
             <div class="modal-footer">
                 <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Done</a>
@@ -197,10 +197,22 @@ $(document).ready(function(){
         
 
         $("#friend-name").text("Your new best friend is "+data.name);
-        $("#friend-pic").text("");
+        $("#friend-pic").text(data.photo);
         alert("NEw Friend added")
         
-        //$(".modal").modal('open')
+        $("#name").val("");
+        $("photo").val("");
+
+        $("#q1").val(1);
+        $("#q2").val(1);
+        $("#q3").val(1);
+        $("#q4").val(1);
+        $("#q5").val(1);
+        $("#q6").val(1);
+        $("#q7").val(1);
+        $("#q8").val(1);
+        $("#q9").val(1);
+        $("#q10").val(1);
       });
       
 
