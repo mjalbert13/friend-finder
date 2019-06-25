@@ -196,7 +196,7 @@ $(document).ready(function(){
       $.post("/api/friends", newFriend).done(function(data){
         
 
-        $("#frien-name").text(data.friendMatch);
+        $("#friend-name").text(data.bestFriend);
         $("#friend-pic").text(data.matchPhoto);
         alert("NEw Friend added")
         
